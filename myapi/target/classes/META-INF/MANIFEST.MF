@@ -1,0 +1,10 @@
+Manifest-Version: 1.0
+Built-By: Void Wind
+Build-Jdk: 11.0.1
+Implementation-Title: myapi
+Implementation-Version: 0.0.1-SNAPSHOT
+Implementation-Vendor-Id: com.musicmanager
+Implementation-Vendor: Pivotal Software, Inc.
+Implementation-URL: http://projects.spring.io/spring-boot/myapi/
+Created-By: Maven Integration for Eclipse
+

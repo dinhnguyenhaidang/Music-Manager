@@ -1,0 +1,22 @@
+package com.musicmanager.api;
+
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.musicmanager.dto.MusicManagerDTO;
+
+/**
+ * This class does nothing
+ * 
+ * @author Void Wind
+ * @version 1.0
+ * @since 2021-30-06
+ */
+@Controller
+public class MusicManagerAPI {
+	@PostMapping(value = "/music-manager")
+	public MusicManagerDTO createNew(@RequestBody MusicManagerDTO model) {
+		return model;
+	}
+}

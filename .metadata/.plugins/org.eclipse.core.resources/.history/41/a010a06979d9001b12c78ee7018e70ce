@@ -1,0 +1,12 @@
+package com.musicmanager.api;
+
+/**
+ * This class does nothing
+ * 
+ * @author Void Wind
+ * @version 1.0
+ * @since 2021-30-06
+ */
+public class MusicManagerAPI {
+
+}
