@@ -1,3 +1,0 @@
-INDEX VERSION 1.131
-E:\Works\My Projects\Eclipse\Music Manager\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\3772475125.index
-\music-manager\src\main\java
