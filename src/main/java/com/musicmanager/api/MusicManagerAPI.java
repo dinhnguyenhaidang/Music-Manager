@@ -20,7 +20,7 @@ import com.musicmanager.dto.SongDTO;
 public class MusicManagerAPI {
 
 	/**
-	 * This function handles GET requests, return the MusicManagerDTO received
+	 * This function handles GET requests, return the MusicManagerDTO received (currently)
 	 * 
 	 * @param model
 	 * @return
@@ -31,7 +31,7 @@ public class MusicManagerAPI {
 	}
 
 	/**
-	 * This function handles POST requests, return the MusicManagerDTO received
+	 * This function handles POST requests, return the MusicManagerDTO received (currently)
 	 * 
 	 * @param model
 	 * @return
@@ -42,7 +42,7 @@ public class MusicManagerAPI {
 	}
 
 	/**
-	 * This function handles PUT requests, return the MusicManagerDTO received
+	 * This function handles PUT requests, return the MusicManagerDTO received (currently) 
 	 * 
 	 * @param model
 	 * @return
@@ -53,7 +53,7 @@ public class MusicManagerAPI {
 	}
 
 	/**
-	 * This function handles DELETE requests, does nothing
+	 * This function handles DELETE requests, does nothing (currently)
 	 * 
 	 * @param ids
 	 */
