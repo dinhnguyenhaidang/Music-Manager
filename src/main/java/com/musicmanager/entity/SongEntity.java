@@ -2,26 +2,32 @@ package com.musicmanager.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
  * This class defines song entity and map it to table in database
  * 
  * @author Void Wind
- * @version 1.0
- * @since 2021-07-01
+ * @version 1.1
+ * @since 2021-07-02
  */
 @Entity
 @Table(name = "song")
 public class SongEntity extends BaseEntity {
 	
-	@Column(name = "title")
+	@Column
 	private String title;
 	
-	@Column(name = "albumid")
-	private Long albumId;
+	@ManyToOne()
+	@JoinColumn(name = "albumid")
+	private AlbumEntity album;
 	
-	@Column(name = "singer")
+	@Column
+	private String category;
+	
+	@Column
 	private String singer;
 
 	public String getTitle() {
@@ -32,12 +38,20 @@ public class SongEntity extends BaseEntity {
 		this.title = title;
 	}
 
-	public Long getAlbumId() {
-		return albumId;
+	public AlbumEntity getAlbum() {
+		return album;
 	}
 
-	public void setAlbumId(Long albumId) {
-		this.albumId = albumId;
+	public void setAlbum(AlbumEntity album) {
+		this.album = album;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
 	}
 
 	public String getSinger() {
@@ -47,5 +61,5 @@ public class SongEntity extends BaseEntity {
 	public void setSinger(String singer) {
 		this.singer = singer;
 	}
-
+	
 }
