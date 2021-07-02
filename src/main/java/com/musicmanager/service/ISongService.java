@@ -3,7 +3,7 @@ package com.musicmanager.service;
 import com.musicmanager.dto.SongDTO;
 
 /**
- * I don't know what this interface does...
+ * IASongService helps do things with Data Injection or something I don't know
  * 
  * @author Void Wind
  * @version 1.0
@@ -11,11 +11,6 @@ import com.musicmanager.dto.SongDTO;
  */
 public interface ISongService {
 
-	/**
-	 * 
-	 * @param songDTO
-	 * @return
-	 */
 	SongDTO save(SongDTO songDTO);
 	
 }

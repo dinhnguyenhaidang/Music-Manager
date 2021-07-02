@@ -1,9 +1,12 @@
 package com.musicmanager.converter;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.musicmanager.dto.SongDTO;
+import com.musicmanager.entity.AlbumEntity;
 import com.musicmanager.entity.SongEntity;
+import com.musicmanager.repository.AlbumRepository;
 
 /**
  * This class converts SongDTOs to SongEntities
@@ -14,21 +17,49 @@ import com.musicmanager.entity.SongEntity;
  */
 @Component
 public class SongConverter {
-
-	public SongEntity toEntity(SongDTO dto) {
-		SongEntity entity = new SongEntity();
-		entity.setTitle(dto.getTitle());
-		entity.setCategory(dto.getCategory());
-		entity.setSinger(dto.getSinger());
-		return entity;
-	}
 	
+	@Autowired
+	private AlbumRepository albumRepository;
+
+	/**
+	 * Convert a songEntity to a songDTO
+	 * 
+	 * @param entity to convert
+	 * @return converted dto
+	 */
 	public SongDTO toDTO(SongEntity entity) {
+		// Initialize a dto
 		SongDTO dto = new SongDTO();
+		
+		// Set value from entity to dto
 		dto.setTitle(entity.getTitle());
+		dto.setAlbumId(entity.getAlbum().getId());
 		dto.setCategory(entity.getCategory());
 		dto.setSinger(entity.getSinger());
+		
 		return dto;
 	}
-	
+
+	/**
+	 * Convert a songDTO to a songEntity
+	 * 
+	 * @param dto to convert
+	 * @return converted entity
+	 */
+	public SongEntity toEntity(SongDTO dto) {
+		// Initialize an entity
+		SongEntity entity = new SongEntity();
+
+		// Get album from DB with provided id
+		AlbumEntity albumEntity = albumRepository.findOneById(dto.getAlbumId());
+
+		// Set value from dto to entity
+		entity.setTitle(dto.getTitle());
+		entity.setAlbum(albumEntity);
+		entity.setCategory(dto.getCategory());
+		entity.setSinger(dto.getSinger());
+		
+		return entity;
+	}
+
 }

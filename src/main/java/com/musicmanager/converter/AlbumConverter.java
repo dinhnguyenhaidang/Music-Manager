@@ -2,6 +2,9 @@ package com.musicmanager.converter;
 
 import org.springframework.stereotype.Component;
 
+import com.musicmanager.dto.AlbumDTO;
+import com.musicmanager.entity.AlbumEntity;
+
 /**
  * This class converts AlbumDTOs to AlbumEntities
  * 
@@ -12,4 +15,36 @@ import org.springframework.stereotype.Component;
 @Component
 public class AlbumConverter {
 
+	/**
+	 * Convert an albumEntity to an albumDTO
+	 * 
+	 * @param entity to convert
+	 * @return converted dto
+	 */
+	public AlbumDTO toDTO(AlbumEntity entity) {
+		// Initialize a dto
+		AlbumDTO dto = new AlbumDTO();
+		
+		// Set value from entity to dto
+		dto.setName(entity.getName());
+		
+		return dto;
+	}
+	
+	/**
+	 * Convert an albumDTO to an albumEntity
+	 * 
+	 * @param dto to convert
+	 * @return converted entity
+	 */
+	public AlbumEntity toEntity(AlbumDTO dto) {
+		// Initialize an entity
+		AlbumEntity entity = new AlbumEntity();
+		
+		// Set value from dto to entity
+		entity.setName(dto.getName());
+		
+		return entity;
+	}
+	
 }
