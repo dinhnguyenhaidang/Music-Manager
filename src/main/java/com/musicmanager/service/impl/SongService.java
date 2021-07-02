@@ -37,4 +37,11 @@ public class SongService implements ISongService {
 		return songConverter.toDTO(songEntity);
 	}
 
+	@Override
+	public void delete(long[] ids) {
+		for (long item : ids) {
+			songRepository.delete(item);
+		}
+	}
+
 }

@@ -13,4 +13,6 @@ public interface ISongService {
 
 	SongDTO save(SongDTO songDTO);
 	
+	void delete(long[] ids);
+	
 }

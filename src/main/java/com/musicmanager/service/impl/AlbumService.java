@@ -36,4 +36,11 @@ public class AlbumService implements IAlbumService {
 		// Return the saved albumEntity as albumDTO to check
 		return albumConverter.toDTO(albumEntity);
 	}
+
+	@Override
+	public void delete(long[] ids) {
+		for (long item : ids) {
+			albumRepository.delete(item);
+		}
+	}
 }

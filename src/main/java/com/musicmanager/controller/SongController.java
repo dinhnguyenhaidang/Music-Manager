@@ -1,4 +1,4 @@
-package com.musicmanager.api;
+package com.musicmanager.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -40,6 +40,7 @@ public class SongController {
 
 	@DeleteMapping(value = "/music-manager/song")
 	public void deleteSong(@RequestBody long[] ids) {
+		songService.delete(ids);
 	}
 
 }

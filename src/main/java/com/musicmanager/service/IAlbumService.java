@@ -13,4 +13,6 @@ public interface IAlbumService {
 
 	AlbumDTO save(AlbumDTO albumDTO);
 	
+	void delete(long[] ids);
+	
 }
