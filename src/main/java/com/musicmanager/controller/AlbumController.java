@@ -3,6 +3,7 @@ package com.musicmanager.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -20,12 +21,13 @@ import com.musicmanager.service.IAlbumService;
  */
 @RestController
 public class AlbumController {
-	
+
 	@Autowired
 	IAlbumService albumService;
-	
+
 	@GetMapping(value = "/music-manager/album")
-	public void getAlbum(@RequestBody long[] ids) {
+	public AlbumDTO getAlbum(@RequestBody long id) {
+		return albumService.get(id);
 	}
 
 	@PostMapping(value = "/music-manager/album")
@@ -33,14 +35,15 @@ public class AlbumController {
 		return albumService.save(model);
 	}
 
-	@PutMapping(value = "/music-manager/album")
-	public AlbumDTO updateAlbum(@RequestBody AlbumDTO model) {
-		return model;
+	@PutMapping(value = "/music-manager/album/{id}")
+	public AlbumDTO updateAlbum(@RequestBody AlbumDTO model, @PathVariable("id") long id) {
+		model.setId(id);
+		return albumService.save(model);
 	}
 
 	@DeleteMapping(value = "/music-manager/album")
 	public void deleteAlbum(@RequestBody long[] ids) {
 		albumService.delete(ids);
 	}
-	
+
 }

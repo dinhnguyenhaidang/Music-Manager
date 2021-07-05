@@ -17,7 +17,7 @@ import com.musicmanager.repository.AlbumRepository;
  */
 @Component
 public class SongConverter {
-	
+
 	@Autowired
 	private AlbumRepository albumRepository;
 
@@ -30,13 +30,16 @@ public class SongConverter {
 	public SongDTO toDTO(SongEntity entity) {
 		// Initialize a dto
 		SongDTO dto = new SongDTO();
-		
+
 		// Set value from entity to dto
+		if (entity.getId() != null) {
+			dto.setId(entity.getId());
+		}
 		dto.setTitle(entity.getTitle());
 		dto.setAlbumId(entity.getAlbum().getId());
 		dto.setCategory(entity.getCategory());
 		dto.setSinger(entity.getSinger());
-		
+
 		return dto;
 	}
 
@@ -58,7 +61,26 @@ public class SongConverter {
 		entity.setAlbum(albumEntity);
 		entity.setCategory(dto.getCategory());
 		entity.setSinger(dto.getSinger());
-		
+
+		return entity;
+	}
+
+	/**
+	 * Convert updatedSongDTO to a song entity
+	 * 
+	 * @param updatedASongDTO to convert
+	 * @return converted entity
+	 */
+	public SongEntity toEntity(SongDTO updatedSongDTO, SongEntity entity) {
+		// Get album from DB with provided id
+		AlbumEntity albumEntity = albumRepository.findOneById(updatedSongDTO.getAlbumId());
+
+		// Set value from dto to entity
+		entity.setTitle(updatedSongDTO.getTitle());
+		entity.setAlbum(albumEntity);
+		entity.setCategory(updatedSongDTO.getCategory());
+		entity.setSinger(updatedSongDTO.getSinger());
+
 		return entity;
 	}
 

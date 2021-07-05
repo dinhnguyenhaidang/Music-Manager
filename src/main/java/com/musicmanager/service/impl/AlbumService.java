@@ -20,15 +20,30 @@ import com.musicmanager.service.IAlbumService;
 public class AlbumService implements IAlbumService {
 
 	@Autowired
-	private AlbumRepository albumRepository;
-
-	@Autowired
 	private AlbumConverter albumConverter;
+	
+	@Autowired
+	private AlbumRepository albumRepository;
+	
+	@Override
+	public AlbumDTO get(long id) {
+		AlbumEntity entity = albumRepository.findOneById(id);
+		return albumConverter.toDTO(entity);
+	}
 
 	@Override
 	public AlbumDTO save(AlbumDTO albumDTO) {
-		// Convert albumDTO to albumEntity to process
-		AlbumEntity albumEntity = albumConverter.toEntity(albumDTO);
+		AlbumEntity albumEntity = new AlbumEntity();
+
+		// If id != null, HTTP method is PUT, otherwise HTTP method is POST
+		if (albumDTO.getId() != null) {
+			// Get old album entity
+			AlbumEntity oldAlbumEntity = albumRepository.findOne(albumDTO.getId());
+			albumEntity = albumConverter.toEntity(albumDTO, oldAlbumEntity);
+		} else {
+			// Convert albumDTO to albumEntity to process
+			albumEntity = albumConverter.toEntity(albumDTO);
+		}
 
 		// Save albumEntity to DB
 		albumEntity = albumRepository.save(albumEntity);
@@ -43,4 +58,5 @@ public class AlbumService implements IAlbumService {
 			albumRepository.delete(item);
 		}
 	}
+
 }

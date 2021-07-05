@@ -26,6 +26,9 @@ public class AlbumConverter {
 		AlbumDTO dto = new AlbumDTO();
 		
 		// Set value from entity to dto
+		if (entity.getId() != null) {
+			dto.setId(entity.getId());
+		}
 		dto.setName(entity.getName());
 		
 		return dto;
@@ -43,6 +46,19 @@ public class AlbumConverter {
 		
 		// Set value from dto to entity
 		entity.setName(dto.getName());
+		
+		return entity;
+	}
+	
+	/**
+	 * Convert updatedAlbumDTO to an album entity
+	 * 
+	 * @param updatedAlbumDTO to convert
+	 * @return converted entity
+	 */
+	public AlbumEntity toEntity(AlbumDTO updatedAlbumDTO, AlbumEntity entity) {
+		// Set value from dto to entity
+		entity.setName(updatedAlbumDTO.getName());
 		
 		return entity;
 	}

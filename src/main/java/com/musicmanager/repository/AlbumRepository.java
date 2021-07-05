@@ -12,7 +12,7 @@ import com.musicmanager.entity.AlbumEntity;
  * @since 2021-07-02
  */
 public interface AlbumRepository extends JpaRepository<AlbumEntity, Long> {
-
+	
 	AlbumEntity findOneById(Long id);
 	
 }

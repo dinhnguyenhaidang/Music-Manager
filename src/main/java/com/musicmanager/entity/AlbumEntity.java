@@ -13,7 +13,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "album")
-public class AlbumEntity extends BaseEntity {
+public class AlbumEntity extends AbstractEntity {
 
 	@Column(name = "name")
 	private String name;

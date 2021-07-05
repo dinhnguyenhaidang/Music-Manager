@@ -20,19 +20,34 @@ import com.musicmanager.service.ISongService;
 public class SongService implements ISongService {
 
 	@Autowired
-	private SongRepository songRepository;
-
-	@Autowired
 	private SongConverter songConverter;
+	
+	@Autowired
+	private SongRepository songRepository;
+	
+	@Override
+	public SongDTO get(long id) {
+		SongEntity entity = songRepository.findOneById(id);
+		return songConverter.toDTO(entity);
+	}
 
 	@Override
 	public SongDTO save(SongDTO songDTO) {
-		// Convert songDTO to songEntity to process
-		SongEntity songEntity = songConverter.toEntity(songDTO);
-		
+		SongEntity songEntity = new SongEntity();
+
+		// If id != null, HTTP method is PUT, otherwise HTTP method is POST
+		if (songDTO.getId() != null) {
+			// Get old song entity
+			SongEntity oldSongEntity = songRepository.findOne(songDTO.getId());
+			songEntity = songConverter.toEntity(songDTO, oldSongEntity);
+		} else {
+			// Convert songDTO to songEntity to process
+			songEntity = songConverter.toEntity(songDTO);
+		}
+
 		// Save songEntity to DB
 		songEntity = songRepository.save(songEntity);
-		
+
 		// Return the saved songEntity as songDTO to check
 		return songConverter.toDTO(songEntity);
 	}

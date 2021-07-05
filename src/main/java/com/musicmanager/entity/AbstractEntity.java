@@ -6,14 +6,14 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 /**
- * This class provides a base for other entities to build upon
+ * AbstractEntity provides a base for other entities to build upon
  * 
  * @author Void Wind
- * @version 1.0
- * @since 2021-07-01
+ * @version 1.1
+ * @since 2021-07-05
  */
 @MappedSuperclass
-public abstract class BaseEntity {
+public abstract class AbstractEntity {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

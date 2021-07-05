@@ -15,7 +15,7 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "song")
-public class SongEntity extends BaseEntity {
+public class SongEntity extends AbstractEntity {
 	
 	@Column
 	private String title;

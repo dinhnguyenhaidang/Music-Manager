@@ -7,7 +7,7 @@ package com.musicmanager.dto;
  * @version 1.0
  * @since 2021-07-02
  */
-public class AlbumDTO {
+public class AlbumDTO extends AbstractDTO<AlbumDTO> {
 	
 	private String name;
 

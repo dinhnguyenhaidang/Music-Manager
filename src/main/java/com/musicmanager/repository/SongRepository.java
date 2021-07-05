@@ -13,4 +13,6 @@ import com.musicmanager.entity.SongEntity;
  */
 public interface SongRepository extends JpaRepository<SongEntity, Long> {
 
+	SongEntity findOneById(Long id);
+
 }
