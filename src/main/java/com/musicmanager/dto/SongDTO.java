@@ -1,7 +1,9 @@
 package com.musicmanager.dto;
 
+import java.util.List;
+
 /**
- * This class create song objects carrying data between processes
+ * SongDTO creates song objects carrying data between processes
  * 
  * @author Void Wind
  * @version 1.1
@@ -12,31 +14,38 @@ public class SongDTO extends AbstractDTO<SongDTO> {
 	private String title;
 	private Long albumId;
 	private String category;
-	private String singer;
+	private List<Long> singerIds;
 	
 	public String getTitle() {
 		return title;
 	}
+	
 	public void setTitle(String title) {
 		this.title = title;
 	}
+	
 	public Long getAlbumId() {
 		return albumId;
 	}
+	
 	public void setAlbumId(Long albumId) {
 		this.albumId = albumId;
 	}
+	
 	public String getCategory() {
 		return category;
 	}
+	
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	public String getSinger() {
-		return singer;
+
+	public List<Long> getSingerIds() {
+		return singerIds;
 	}
-	public void setSinger(String singer) {
-		this.singer = singer;
+
+	public void setSingerIds(List<Long> singerIds) {
+		this.singerIds = singerIds;
 	}
-	
+
 }

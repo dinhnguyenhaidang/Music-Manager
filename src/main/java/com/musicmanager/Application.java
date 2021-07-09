@@ -10,6 +10,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @version 1.0
  * @since 2021-06-30
  */
+// Write JUnit tests
 @SpringBootApplication
 public class Application {
 

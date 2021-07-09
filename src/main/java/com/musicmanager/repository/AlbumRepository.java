@@ -5,7 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import com.musicmanager.entity.AlbumEntity;
 
 /**
- * I don't know what this interface does...
+ * AlbumRepository provides supported queries from Spring Boot
  * 
  * @author Void Wind
  * @version 1.0
@@ -14,5 +14,8 @@ import com.musicmanager.entity.AlbumEntity;
 public interface AlbumRepository extends JpaRepository<AlbumEntity, Long> {
 	
 	AlbumEntity findOneById(Long id);
+	
+	// Query JPA transform DTO
+	AlbumEntity findOneByIdAndName(Long id, String name);
 	
 }

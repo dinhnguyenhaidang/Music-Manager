@@ -1,7 +1,7 @@
 package com.musicmanager.dto;
 
 /**
- * This class create album objects carrying data between processes
+ * AlbumDTO creates album objects carrying data between processes
  * 
  * @author Void Wind
  * @version 1.0

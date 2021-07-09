@@ -1,8 +1,5 @@
 package com.musicmanager.dto;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * AbstractDTO provides a base for other DTOs to build upon
  * 

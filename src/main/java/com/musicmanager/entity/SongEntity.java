@@ -1,13 +1,19 @@
 package com.musicmanager.entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * This class defines song entity and map it to table in database
+ * SongEntity defines song entity, its relationships and maps it to table in
+ * database
  * 
  * @author Void Wind
  * @version 1.1
@@ -16,19 +22,23 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "song")
 public class SongEntity extends AbstractEntity {
-	
-	@Column
+
+	@Column(name = "title")
 	private String title;
-	
-	@ManyToOne()
-	@JoinColumn(name = "albumid")
+
+	// Change setting to lazy loading
+	// HQL
+	// @Audit
+	@ManyToOne
+	@JoinColumn(name = "album_id")
 	private AlbumEntity album;
-	
-	@Column
+
+	@Column(name = "category")
 	private String category;
-	
-	@Column
-	private String singer;
+
+	@ManyToMany
+	@JoinTable(name = "song_singer", joinColumns = @JoinColumn(name = "song_id"), inverseJoinColumns = @JoinColumn(name = "singer_id"))
+	private List<SingerEntity> singers = new ArrayList<>();
 
 	public String getTitle() {
 		return title;
@@ -54,12 +64,12 @@ public class SongEntity extends AbstractEntity {
 		this.category = category;
 	}
 
-	public String getSinger() {
-		return singer;
+	public List<SingerEntity> getSingers() {
+		return singers;
 	}
 
-	public void setSinger(String singer) {
-		this.singer = singer;
+	public void setSingers(List<SingerEntity> singers) {
+		this.singers = singers;
 	}
-	
+
 }

@@ -5,7 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 /**
- * This class defines album entity and map it to table in database
+ * AlbumEntity defines album entity, its relationships and maps it to table in database
  * 
  * @author Void Wind
  * @version 1.0

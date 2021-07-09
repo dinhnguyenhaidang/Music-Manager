@@ -27,7 +27,7 @@ public class SongService implements ISongService {
 	
 	@Override
 	public SongDTO get(long id) {
-		SongEntity entity = songRepository.findOneById(id);
+		SongEntity entity = songRepository.findOne(id);
 		return songConverter.toDTO(entity);
 	}
 
