@@ -1,12 +1,12 @@
 package com.musicmanager.dto;
 
 /**
- * AbstractDTO provides a base for other DTOs to build upon
+ * Provides a base for other DTOs to build upon
  * 
  * @author Void Wind
- * @version 1.0
+ * @version 1.1
  * @param <T>
- * @since 2021-07-05
+ * @since 2021-07-12
  */
 public abstract class AbstractDTO<T> {
 

@@ -3,35 +3,42 @@ package com.musicmanager.service;
 import com.musicmanager.dto.SongDTO;
 
 /**
- * IASongService helps do things with Data Injection or something I don't know
+ * Follows a template for Data Injection
  * 
  * @author Void Wind
- * @version 1.0
- * @since 2021-07-02
+ * @version 1.1
+ * @since 2021-07-12
  */
 public interface ISongService {
 	
 	/**
-	 * Get a record from database
+	 * Get a song DTO converted from a song entity that has the provided id from database
 	 * 
-	 * @param id
-	 * @return
+	 * @param id of the song DTO to get
+	 * @return a song DTO converted from the song entity that has the provided id
 	 */
 	SongDTO get(long id);
 
 	/**
-	 * Save a record to database
-	 * The action is create or update depends on if albumDTO has id or not
+	 * Save a song entity, converted from the provided song DTO, to database
 	 * 
-	 * @param albumDTO
-	 * @return
+	 * @param songDTO to save
+	 * @return a song DTO converted from the saved song entity
 	 */
 	SongDTO save(SongDTO songDTO);
 	
 	/**
-	 * Delete record(s) from database having id exists in array ids
+	 * Update a song entity, with data from the provided song DTO, from database
 	 * 
-	 * @param ids
+	 * @param songDTO with updated data
+	 * @return a song DTO converted from the updated song entity
+	 */
+	SongDTO update(SongDTO songDTO);
+	
+	/**
+	 * Delete song entities that have provided ids from database
+	 * 
+	 * @param ids of song entities to delete
 	 */
 	void delete(long[] ids);
 	

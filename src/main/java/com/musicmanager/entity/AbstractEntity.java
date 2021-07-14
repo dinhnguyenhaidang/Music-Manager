@@ -9,11 +9,11 @@ import javax.persistence.MappedSuperclass;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 /**
- * AbstractEntity provides a base for other entities to build upon
+ * Provides a base for other entities to build upon
  * 
  * @author Void Wind
- * @version 1.1
- * @since 2021-07-05
+ * @version 1.2
+ * @since 2021-07-12
  */
 @MappedSuperclass
 @EntityListeners(AuditingEntityListener.class)
@@ -26,5 +26,9 @@ public abstract class AbstractEntity {
 	public Long getId() {
 		return id;
 	}
-	
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 }

@@ -6,61 +6,65 @@ import com.musicmanager.dto.AlbumDTO;
 import com.musicmanager.entity.AlbumEntity;
 
 /**
- * This class converts AlbumDTOs to AlbumEntities
+ * Converts album DTOs to album entities and vice versa
  * 
  * @author Void Wind
- * @version 1.0
- * @since 2021-07-02
+ * @version 1.2
+ * @since 2021-07-14
  */
 @Component
 public class AlbumConverter {
 
 	/**
-	 * Convert an albumEntity to an albumDTO
+	 * Converts an album entity to an album DTO
 	 * 
-	 * @param entity to convert
-	 * @return converted dto
+	 * @param albumEntity to convert
+	 * @return a converted DTO
 	 */
-	public AlbumDTO toDTO(AlbumEntity entity) {
-		// Initialize a dto
-		AlbumDTO dto = new AlbumDTO();
+	public AlbumDTO toDTO(AlbumEntity albumEntity) {
+		// Initialize a DTO
+		AlbumDTO albumDTO = new AlbumDTO();
 		
-		// Set value from entity to dto
-		if (entity.getId() != null) {
-			dto.setId(entity.getId());
+		// Set values from the entity to the DTO
+		if (albumEntity.getId() != null) {
+			albumDTO.setId(albumEntity.getId());
 		}
-		dto.setName(entity.getName());
+		albumDTO.setName(albumEntity.getName());
 		
-		return dto;
+		return albumDTO;
 	}
 	
 	/**
-	 * Convert an albumDTO to an albumEntity
+	 * Converts an album DTO to an album entity
 	 * 
-	 * @param dto to convert
-	 * @return converted entity
+	 * @param albumDTO to convert
+	 * @return a converted entity
 	 */
-	public AlbumEntity toEntity(AlbumDTO dto) {
+	public AlbumEntity toEntity(AlbumDTO albumDTO) {
 		// Initialize an entity
-		AlbumEntity entity = new AlbumEntity();
+		AlbumEntity albumEntity = new AlbumEntity();
 		
-		// Set value from dto to entity
-		entity.setName(dto.getName());
+		// Set values from the DTO to the entity
+		if (albumDTO.getId() != null) {
+			albumEntity.setId(albumDTO.getId());
+		}
+		albumEntity.setName(albumDTO.getName());
 		
-		return entity;
+		return albumEntity;
 	}
 	
 	/**
-	 * Convert updatedAlbumDTO to an album entity
+	 * Converts an updated album DTO to an album entity with an old album entity as a base
 	 * 
-	 * @param updatedAlbumDTO to convert
-	 * @return converted entity
+	 * @param updatedDTO to convert
+	 * @param oldEntity as a base to update
+	 * @return a converted and updated entity
 	 */
-	public AlbumEntity toEntity(AlbumDTO updatedAlbumDTO, AlbumEntity entity) {
-		// Set value from dto to entity
-		entity.setName(updatedAlbumDTO.getName());
-		
-		return entity;
-	}
+//	public AlbumEntity toEntity(AlbumDTO updatedDTO, AlbumEntity oldEntity) {
+//		// Set values from the updated DTO to the entity
+//		oldEntity.setName(updatedDTO.getName());
+//		
+//		return oldEntity;
+//	}
 	
 }

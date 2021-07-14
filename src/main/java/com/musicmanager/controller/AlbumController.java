@@ -5,43 +5,40 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.musicmanager.dto.AlbumDTO;
 import com.musicmanager.service.IAlbumService;
 
 /**
- * AlbumController handles requests related to album
+ * Handles requests related to album
  * 
  * @author Void Wind
- * @version 1.0
- * @since 2021-07-02
+ * @version 1.1
+ * @since 2021-07-012
  */
 @RestController
 public class AlbumController {
 
 	@Autowired
-	IAlbumService albumService;
+	private IAlbumService albumService;
 
 	/**
 	 * Handles GET requests related to album
-	 * Uses request parameter to send id
 	 * 
-	 * @param id of album to get
-	 * @return album having matching id
+	 * @param id of album to read, receive from path variable
+	 * @return an album DTO that has the requested id
 	 */
-	@RequestMapping(value = "/music-manager/album", method = RequestMethod.GET)
-	public AlbumDTO getAlbum(@RequestParam long id) {
+	@RequestMapping(value = "/music-manager/album/{album-id}", method = RequestMethod.GET)
+	public AlbumDTO readAlbum(@PathVariable(name = "album-id", required = true) long id) {
 		return albumService.get(id);
 	}
 
 	/**
 	 * Handles POST requests related to album
-	 * Uses request body to send model
 	 * 
-	 * @param model to post
-	 * @return posted model
+	 * @param model to create, receive from request body
+	 * @return an album DTO that matches the model
 	 */
 	@RequestMapping(value = "/music-manager/album", method = RequestMethod.POST)
 	public AlbumDTO createAlbum(@RequestBody AlbumDTO model) {
@@ -50,23 +47,21 @@ public class AlbumController {
 
 	/**
 	 * Handles PUT requests related to album
-	 * Uses request body to send model and path variable to send id
 	 * 
-	 * @param updated model 
-	 * @param id of old model to put
-	 * @return put model
+	 * @param model to update, receive from request body
+	 * @param id of album to update, receive from path variable
+	 * @return an album DTO that matches the model
 	 */
 	@RequestMapping(value = "/music-manager/album/{album-id}", method = RequestMethod.PUT)
 	public AlbumDTO updateAlbum(@RequestBody AlbumDTO model, @PathVariable(name = "album-id", required = true) long id) {
 		model.setId(id);
-		return albumService.save(model);
+		return albumService.update(model);
 	}
 
 	/**
 	 * Handle DELETE requests related to album
-	 * Uses request body to send ids
 	 * 
-	 * @param ids of albums to delete
+	 * @param ids of albums to delete, receive from request body
 	 */
 	@RequestMapping(value = "/music-manager/album", method = RequestMethod.DELETE)
 	public void deleteAlbum(@RequestBody long[] ids) {

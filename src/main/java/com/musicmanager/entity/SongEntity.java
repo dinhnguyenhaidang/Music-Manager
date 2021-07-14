@@ -1,23 +1,23 @@
 package com.musicmanager.entity;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
- * SongEntity defines song entity, its relationships and maps it to table in
- * database
+ * Defines song entity, its relationships and maps it to the corresponding table
+ * in database
  * 
  * @author Void Wind
- * @version 1.1
- * @since 2021-07-02
+ * @version 1.2
+ * @since 2021-07-12
  */
 @Entity
 @Table(name = "song")
@@ -27,18 +27,18 @@ public class SongEntity extends AbstractEntity {
 	private String title;
 
 	// Change setting to lazy loading
-	// HQL
-	// @Audit
-	@ManyToOne
+	// Research HQL
+	// Research @Audit
+	// Create a new entity whatever
+	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "album_id")
 	private AlbumEntity album;
 
 	@Column(name = "category")
 	private String category;
 
-	@ManyToMany
-	@JoinTable(name = "song_singer", joinColumns = @JoinColumn(name = "song_id"), inverseJoinColumns = @JoinColumn(name = "singer_id"))
-	private List<SingerEntity> singers = new ArrayList<>();
+	@ManyToMany(mappedBy = "songs")
+	private List<SingerEntity> singers;
 
 	public String getTitle() {
 		return title;

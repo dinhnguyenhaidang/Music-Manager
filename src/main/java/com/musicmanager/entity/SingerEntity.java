@@ -1,19 +1,23 @@
 package com.musicmanager.entity;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 /**
- * SingerEntity defines album entity, its relationships and maps it to table in database
+ * Defines singer entity, its relationships and maps it to the corresponding
+ * table in database
  * 
  * @author Void Wind
- * @version 1.0
- * @since 2021-07-01
+ * @version 1.1
+ * @since 2021-07-12
  */
 @Entity
 @Table(name = "singer")
@@ -21,12 +25,13 @@ public class SingerEntity extends AbstractEntity {
 
 	@Column(name = "name")
 	private String name;
-	
+
 	@Column(name = "age")
 	private int age;
-	
-	@ManyToMany(mappedBy = "singers")
-    private List<SongEntity> songs = new ArrayList<>();
+
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinTable(name = "song_singer", joinColumns = @JoinColumn(name = "singer_id"), inverseJoinColumns = @JoinColumn(name = "song_id"))
+	private List<SongEntity> songs;
 
 	public String getName() {
 		return name;

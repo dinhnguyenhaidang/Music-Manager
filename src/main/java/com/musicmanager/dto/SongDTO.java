@@ -3,11 +3,11 @@ package com.musicmanager.dto;
 import java.util.List;
 
 /**
- * SongDTO creates song objects carrying data between processes
+ * Creates song data transfer objects that carry data between processes
  * 
  * @author Void Wind
- * @version 1.1
- * @since 2021-07-02
+ * @version 1.2
+ * @since 2021-07-12
  */
 public class SongDTO extends AbstractDTO<SongDTO> {
 	

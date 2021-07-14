@@ -5,11 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 /**
- * AlbumEntity defines album entity, its relationships and maps it to table in database
+ * Defines album entity, its relationships and maps it to the corresponding table in database
  * 
  * @author Void Wind
- * @version 1.0
- * @since 2021-07-01
+ * @version 1.1
+ * @since 2021-07-12
  */
 @Entity
 @Table(name = "album")

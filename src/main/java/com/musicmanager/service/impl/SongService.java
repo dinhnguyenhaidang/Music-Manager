@@ -10,21 +10,21 @@ import com.musicmanager.repository.SongRepository;
 import com.musicmanager.service.ISongService;
 
 /**
- * SongService provides services related to album
+ * Provides services related to song
  * 
  * @author Void Wind
- * @version 1.0
- * @since 2021-07-02
+ * @version 1.2
+ * @since 2021-07-12
  */
 @Service
 public class SongService implements ISongService {
 
 	@Autowired
 	private SongConverter songConverter;
-	
+
 	@Autowired
 	private SongRepository songRepository;
-	
+
 	@Override
 	public SongDTO get(long id) {
 		SongEntity entity = songRepository.findOne(id);
@@ -33,29 +33,38 @@ public class SongService implements ISongService {
 
 	@Override
 	public SongDTO save(SongDTO songDTO) {
+		// Initialize (assume songDTO's id is always null)
 		SongEntity songEntity = new SongEntity();
 
-		// If id != null, HTTP method is PUT, otherwise HTTP method is POST
-		if (songDTO.getId() != null) {
-			// Get old song entity
-			SongEntity oldSongEntity = songRepository.findOne(songDTO.getId());
-			songEntity = songConverter.toEntity(songDTO, oldSongEntity);
-		} else {
-			// Convert songDTO to songEntity to process
-			songEntity = songConverter.toEntity(songDTO);
-		}
+		// Convert singerDTO to a singer entity and assign it to singerEntity
+		songEntity = songConverter.toEntity(songDTO);
 
-		// Save songEntity to DB
+		// Save songEntity to database
 		songEntity = songRepository.save(songEntity);
 
-		// Return the saved songEntity as songDTO to check
+		// Return a song DTO converted from songEntity
+		return songConverter.toDTO(songEntity);
+	}
+
+	@Override
+	public SongDTO update(SongDTO songDTO) {
+		// Get old song entity
+		SongEntity songEntity = songRepository.findOne(songDTO.getId());
+
+		// Convert songDTO to the old song entity to update it
+		songEntity = songConverter.toEntity(songDTO);
+
+		// Save songEntity to database
+		songEntity = songRepository.save(songEntity);
+
+		// Return a song DTO converted from songEntity
 		return songConverter.toDTO(songEntity);
 	}
 
 	@Override
 	public void delete(long[] ids) {
-		for (long item : ids) {
-			songRepository.delete(item);
+		for (long id : ids) {
+			songRepository.delete(id);
 		}
 	}
 

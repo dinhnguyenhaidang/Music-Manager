@@ -12,84 +12,101 @@ import com.musicmanager.entity.SongEntity;
 import com.musicmanager.repository.SongRepository;
 
 /**
- * SingerConverter converts SingerDTOs to SingerEntities and vice versa
+ * Converts singer DTOs to singer entities and vice versa
  * 
  * @author Void Wind
- * @version 1.0
- * @since 2021-07-09
+ * @version 1.2
+ * @since 2021-07-14
  */
 @Component
 public class SingerConverter {
-	
+
 	@Autowired
 	private SongRepository songRepository;
 
 	/**
-	 * Convert a singerEntity to a singerDTO
+	 * Converts a singer entity to a singer DTO
 	 * 
-	 * @param entity to convert
-	 * @return converted dto
+	 * @param singerEntity to convert
+	 * @return a converted DTO
 	 */
-	public SingerDTO toDTO(SingerEntity entity) {
-		// Initialize a dto
-		SingerDTO dto = new SingerDTO();
+	public SingerDTO toDTO(SingerEntity singerEntity) {
+		// Initialize a DTO
+		SingerDTO singerDTO = new SingerDTO();
 
-		// If the action is update, set id from entity to dto, if the action is create the id is auto-generated
-		if (entity.getId() != null) {
-			dto.setId(entity.getId());
-		}
-		
-		// Get song ids from entity's song list
+		// Get song ids from the entity's song list
 		List<Long> songIds = new ArrayList<>();
-		for (SongEntity song : entity.getSongs()) {
-			songIds.add(song.getId());
+		try {
+			for (SongEntity song : singerEntity.getSongs()) {
+				songIds.add(song.getId());
+			}
+		} catch (NullPointerException ex) {
+			songIds = null;
 		}
-		
-		// Set values from entity to dto
-		dto.setName(entity.getName());
-		dto.setAge(entity.getAge());
-		dto.setSongIds(songIds);
 
-		return dto;
+		// Set values from the entity to the DTO
+		if (singerEntity.getId() != null) {
+			singerDTO.setId(singerEntity.getId());
+		}
+		singerDTO.setName(singerEntity.getName());
+		singerDTO.setAge(singerEntity.getAge());
+		singerDTO.setSongIds(songIds);
+
+		return singerDTO;
 	}
 
 	/**
-	 * Convert a singerDTO to a singerEntity
+	 * Convert a singer DTO to a singer entity
 	 * 
-	 * @param dto to convert
-	 * @return converted entity
+	 * @param singerDTO to convert
+	 * @return a converted entity
 	 */
-	public SingerEntity toEntity(SingerDTO dto) {
+	public SingerEntity toEntity(SingerDTO singerDTO) {
 		// Initialize an entity
-		SingerEntity entity = new SingerEntity();
+		SingerEntity singerEntity = new SingerEntity();
 
-		// Get songs from DB with provided song ids
-		List<SongEntity> songEntities = songRepository.findById(dto.getSongIds());
+		// Get songs from database with provided song ids
+		List<SongEntity> songEntities = null;
+		try {
+			songEntities = songRepository.findAll(singerDTO.getSongIds());
+		} catch (NullPointerException ex) {
+			// Do nothing
+		}
 
-		// Set values from dto to entity
-		entity.setName(dto.getName());
-		entity.setAge(dto.getAge());
-		entity.setSongs(songEntities);
+		// Set values from the DTO to the entity
+		if (singerDTO.getId() != null) {
+			singerEntity.setId(singerDTO.getId());
+		}
+		singerEntity.setName(singerDTO.getName());
+		singerEntity.setAge(singerDTO.getAge());
+		singerEntity.setSongs(songEntities);
 
-		return entity;
+		return singerEntity;
 	}
 
 	/**
-	 * Convert updatedSingerDTO to a singer entity
+	 * Converts an updated singer DTO to a singer entity with an old singer entity
+	 * as a base
 	 * 
-	 * @param an updatedSingerDTO to convert
-	 * @return converted entity
+	 * @param updatedDTO to convert
+	 * @param oldEntity  as a base to update
+	 * @return a converted and updated entity
 	 */
-	public SingerEntity toEntity(SingerDTO updatedSingerDTO, SingerEntity entity) {
-		// Get songs from DB with provided song ids
-		List<SongEntity> songEntities = songRepository.findById(updatedSingerDTO.getSongIds());
-
-		// Set values from dto to entity
-		entity.setName(updatedSingerDTO.getName());
-		entity.setAge(updatedSingerDTO.getAge());
-		entity.setSongs(songEntities);
-
-		return entity;
-	}
+//	public SingerEntity toEntity(SingerDTO updatedDTO, SingerEntity oldEntity) {
+//		// Get songs from database with provided song ids
+//		List<SongEntity> songEntities = new ArrayList<>();
+//		try {
+//			songEntities = songRepository.findAll(updatedDTO.getSongIds());
+//		} catch (NullPointerException ex) {
+//			// Do nothing
+//		}
+//
+//		// Set values from the updatedDTO to the entity
+//		oldEntity.setName(updatedDTO.getName());
+//		oldEntity.setAge(updatedDTO.getAge());
+//		oldEntity.setSongs(songEntities);
+//
+//		return oldEntity;
+//	}
 
 }
