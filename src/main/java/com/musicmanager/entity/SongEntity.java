@@ -1,5 +1,6 @@
 package com.musicmanager.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -7,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -26,10 +28,6 @@ public class SongEntity extends AbstractEntity {
 	@Column(name = "title")
 	private String title;
 
-	// Change setting to lazy loading
-	// Research HQL
-	// Research @Audit
-	// Create a new entity whatever
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@JoinColumn(name = "album_id")
 	private AlbumEntity album;
@@ -37,8 +35,9 @@ public class SongEntity extends AbstractEntity {
 	@Column(name = "category")
 	private String category;
 
-	@ManyToMany(mappedBy = "songs")
-	private List<SingerEntity> singers;
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinTable(name = "song_singer", joinColumns = @JoinColumn(name = "song_id"), inverseJoinColumns = @JoinColumn(name = "singer_id"))
+	private List<SingerEntity> singers = new ArrayList<>();
 
 	public String getTitle() {
 		return title;

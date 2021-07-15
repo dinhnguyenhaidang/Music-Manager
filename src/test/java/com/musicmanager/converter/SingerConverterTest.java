@@ -7,14 +7,18 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import com.musicmanager.dto.SingerDTO;
 import com.musicmanager.entity.SingerEntity;
 import com.musicmanager.entity.SongEntity;
 
-@RunWith(MockitoJUnitRunner.class)
+/**
+ * Tests SingerConverter
+ * 
+ * @author Void Wind
+ * @version 1.2
+ * @since 2021-07-14
+ */
 public class SingerConverterTest {
 
 	private SingerConverter singerConverter;
@@ -32,25 +36,25 @@ public class SingerConverterTest {
 	}
 
 	/**
-	 * Test toDTO(singerEntity)
+	 * Test toDTO
 	 */
 	@Test
 	public void testToDTO() {
-		System.out.println("Testing toDTO(singerEntity)");
+		System.out.println("Testing toDTO.");
 
 		// Given a SingerEntity called singerEntity
 		SongEntity songEntity1 = new SongEntity();
-		songEntity1.setId(Long.valueOf(1));
+		songEntity1.setId(1L);
 
 		SongEntity songEntity2 = new SongEntity();
-		songEntity2.setId(Long.valueOf(2));
+		songEntity2.setId(2L);
 
 		List<SongEntity> songEntities = new ArrayList<>();
 		songEntities.add(songEntity1);
 		songEntities.add(songEntity2);
 
 		SingerEntity singerEntity = new SingerEntity();
-		singerEntity.setId(Long.valueOf(1));
+		singerEntity.setId(1L);
 		singerEntity.setName("Singer Name");
 		singerEntity.setAge(1);
 		singerEntity.setSongs(songEntities);
@@ -69,19 +73,19 @@ public class SingerConverterTest {
 	}
 
 	/**
-	 * Test toEntity(singerDTO)
+	 * Test toEntity
 	 */
 	@Test
 	public void testToEntity() {
-		System.out.println("Testing toEntity(singerDTO)");
+		System.out.println("Testing toEntity.");
 
 		// Given a SingerDTO called singerDTO
 		List<Long> songIds = new ArrayList<>();
-		songIds.add(Long.valueOf(1));
-		songIds.add(Long.valueOf(2));
+		songIds.add(1L);
+		songIds.add(2L);
 
 		SingerDTO singerDTO = new SingerDTO();
-		singerDTO.setId(Long.valueOf(1));
+		singerDTO.setId(1L);
 		singerDTO.setName("Singer Name");
 		singerDTO.setAge(1);
 		singerDTO.setSongIds(songIds);
@@ -93,38 +97,6 @@ public class SingerConverterTest {
 		Assert.assertEquals(singerDTO.getId(), singerEntity.getId());
 		Assert.assertEquals(singerDTO.getName(), singerEntity.getName());
 		Assert.assertEquals(singerDTO.getAge(), singerEntity.getAge());
-		Assert.assertEquals(singerDTO.getSongIds().size(), singerEntity.getSongs().size());
-		for (int i = 0; i < singerDTO.getSongIds().size(); i++) {
-			Assert.assertEquals(singerDTO.getSongIds().get(i), singerEntity.getSongs().get(i).getId());
-		}
 	}
-
-//	@Test
-//	public void testToEntity2() {
-//		System.out.println("Test toEntity2");
-//
-//		// Given
-//		SingerDTO singerDTO = new SingerDTO();
-//		singerDTO.setName("Singer Name Updated");
-//		singerDTO.setAge(2);
-//
-//		SingerEntity oldSingerEntity = new SingerEntity();
-//		oldSingerEntity.setName("Singer Name");
-//		oldSingerEntity.setAge(1);
-//
-//		SingerEntity expectedSingerEntity = new SingerEntity();
-//		expectedSingerEntity.setName("Singer Name Updated");
-//		expectedSingerEntity.setAge(2);
-//
-//		// When
-//		SingerEntity actualSingerEntity = singerConverter.toEntity(singerDTO, oldSingerEntity);
-//
-//		// Then
-//		System.out.println("Singer Name: " + expectedSingerEntity.getName() + " - " + actualSingerEntity.getName());
-//		Assert.assertEquals(expectedSingerEntity.getName(), actualSingerEntity.getName());
-//
-//		System.out.println("Singer Age: " + expectedSingerEntity.getAge() + " - " + actualSingerEntity.getAge());
-//		Assert.assertEquals(expectedSingerEntity.getAge(), actualSingerEntity.getAge());
-//	}
 
 }

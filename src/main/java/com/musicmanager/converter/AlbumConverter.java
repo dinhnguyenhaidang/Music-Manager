@@ -6,7 +6,7 @@ import com.musicmanager.dto.AlbumDTO;
 import com.musicmanager.entity.AlbumEntity;
 
 /**
- * Converts album DTOs to album entities and vice versa
+ * Converts AlbumDTOs to AlbumEntities and vice versa
  * 
  * @author Void Wind
  * @version 1.2
@@ -16,7 +16,7 @@ import com.musicmanager.entity.AlbumEntity;
 public class AlbumConverter {
 
 	/**
-	 * Converts an album entity to an album DTO
+	 * Converts an AlbumEntity to an AlbumDTO
 	 * 
 	 * @param albumEntity to convert
 	 * @return a converted DTO
@@ -35,7 +35,7 @@ public class AlbumConverter {
 	}
 	
 	/**
-	 * Converts an album DTO to an album entity
+	 * Converts an AlbumDTO to an AlbumEntity
 	 * 
 	 * @param albumDTO to convert
 	 * @return a converted entity
@@ -52,19 +52,5 @@ public class AlbumConverter {
 		
 		return albumEntity;
 	}
-	
-	/**
-	 * Converts an updated album DTO to an album entity with an old album entity as a base
-	 * 
-	 * @param updatedDTO to convert
-	 * @param oldEntity as a base to update
-	 * @return a converted and updated entity
-	 */
-//	public AlbumEntity toEntity(AlbumDTO updatedDTO, AlbumEntity oldEntity) {
-//		// Set values from the updated DTO to the entity
-//		oldEntity.setName(updatedDTO.getName());
-//		
-//		return oldEntity;
-//	}
 	
 }

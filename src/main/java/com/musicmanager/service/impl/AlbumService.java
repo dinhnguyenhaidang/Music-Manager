@@ -27,7 +27,8 @@ public class AlbumService implements IAlbumService {
 
 	@Override
 	public AlbumDTO get(long id) {
-		AlbumEntity albumEntity = albumRepository.findOne(id);
+		AlbumEntity albumEntity = new AlbumEntity();
+		albumEntity = albumRepository.findOne(id);
 		return albumConverter.toDTO(albumEntity);
 	}
 
@@ -42,7 +43,7 @@ public class AlbumService implements IAlbumService {
 		// Save albumEntity to database
 		albumEntity = albumRepository.save(albumEntity);
 
-		// Return an album DTO converted from albumEntity
+		// Return an AlbumDTO converted from albumEntity
 		return albumConverter.toDTO(albumEntity);
 	}
 

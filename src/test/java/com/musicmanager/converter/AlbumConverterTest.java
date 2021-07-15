@@ -4,13 +4,17 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.runners.MockitoJUnitRunner;
 
 import com.musicmanager.dto.AlbumDTO;
 import com.musicmanager.entity.AlbumEntity;
 
-@RunWith(MockitoJUnitRunner.class)
+/**
+ * Tests AlbumConverter
+ * 
+ * @author Void Wind
+ * @version 1.2
+ * @since 2021-07-14
+ */
 public class AlbumConverterTest {
 
 	private AlbumConverter albumConverter;
@@ -28,15 +32,15 @@ public class AlbumConverterTest {
 	}
 	
 	/**
-	 * Test toDTO(albumEntity)
+	 * Test toDTO
 	 */
 	@Test
 	public void testToDTO() {
-		System.out.println("Testing toDTO(albumEntity).");
+		System.out.println("Testing toDTO.");
 		
 		// Given an AlbumEntity called albumEntity
 		AlbumEntity albumEntity = new AlbumEntity();
-		albumEntity.setId(Long.valueOf(1));
+		albumEntity.setId(1L);
 		albumEntity.setName("Album Name");
 
 		// When convert albumEntity to an AlbumDTO called albumDTO
@@ -48,15 +52,15 @@ public class AlbumConverterTest {
 	}
 
 	/**
-	 * Test toEntity(albumDTO)
+	 * Test toEntity
 	 */
 	@Test
 	public void testToEntity() {
-		System.out.println("Testing toEntity(albumDTO).");
+		System.out.println("Testing toEntity.");
 		
 		// Given an AlbumDTO called albumDTO
 		AlbumDTO albumDTO = new AlbumDTO();
-		albumDTO.setId(Long.valueOf(1));
+		albumDTO.setId(1L);
 		albumDTO.setName("Album Name");
 
 		// When convert albumDTO to an AlbumEntity called albumEntity
@@ -66,30 +70,5 @@ public class AlbumConverterTest {
 		Assert.assertEquals(albumDTO.getId(), albumEntity.getId());
 		Assert.assertEquals(albumDTO.getName(), albumEntity.getName());
 	}
-
-	/**
-	 * Test toEntity(updatedDTO, oldEntity) function
-	 */
-//	@Test
-//	public void testToEntity2() {
-//		System.out.println("Test toEntity2");
-//		
-//		// Given
-//		AlbumDTO albumDTO = new AlbumDTO();
-//		albumDTO.setName("Album Name Updated");
-//
-//		AlbumEntity oldAlbumEntity = new AlbumEntity();
-//		oldAlbumEntity.setName("Album Name");
-//
-//		AlbumEntity expectedAlbumEntity = new AlbumEntity();
-//		expectedAlbumEntity.setName("Album Name Updated");
-//
-//		// When
-//		AlbumEntity actualAlbumEntity = albumConverter.toEntity(albumDTO, oldAlbumEntity);
-//
-//		// Then
-//		System.out.println("Album Name: " + expectedAlbumEntity.getName() + " - " + actualAlbumEntity.getName());
-//		Assert.assertEquals(expectedAlbumEntity.getName(), actualAlbumEntity.getName());
-//	}
 
 }

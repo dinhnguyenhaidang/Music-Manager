@@ -1,13 +1,10 @@
 package com.musicmanager.entity;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
@@ -29,9 +26,17 @@ public class SingerEntity extends AbstractEntity {
 	@Column(name = "age")
 	private int age;
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinTable(name = "song_singer", joinColumns = @JoinColumn(name = "singer_id"), inverseJoinColumns = @JoinColumn(name = "song_id"))
-	private List<SongEntity> songs;
+	@ManyToMany(mappedBy = "singers")
+	private List<SongEntity> songs = new ArrayList<>();
+	
+	public void addSong(SongEntity songEntity) {
+		this.songs.add(songEntity);
+		songEntity.getSingers().add(this);
+	}
+	
+	public void removeSong(SongEntity songEntity) {
+		songEntity.getSingers().remove(this);
+	}
 
 	public String getName() {
 		return name;

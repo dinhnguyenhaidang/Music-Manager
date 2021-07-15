@@ -4,13 +4,12 @@ import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
 
-import com.musicmanager.converter.AlbumConverterTest;
-import com.musicmanager.converter.SingerConverterTest;
+import com.musicmanager.service.impl.AlbumServiceTest;
 
 public class TestRunner {
 
 	public static void main(String[] args) {
-		Result result = JUnitCore.runClasses(SingerConverterTest.class);
+		Result result = JUnitCore.runClasses(AlbumServiceTest.class);
 
 		for (Failure failure : result.getFailures()) {
 			System.out.println(failure.toString());

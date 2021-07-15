@@ -1,11 +1,17 @@
 package com.musicmanager.service.impl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.musicmanager.converter.SongConverter;
 import com.musicmanager.dto.SongDTO;
+import com.musicmanager.entity.AlbumEntity;
+import com.musicmanager.entity.SingerEntity;
 import com.musicmanager.entity.SongEntity;
+import com.musicmanager.repository.AlbumRepository;
+import com.musicmanager.repository.SingerRepository;
 import com.musicmanager.repository.SongRepository;
 import com.musicmanager.service.ISongService;
 
@@ -21,6 +27,12 @@ public class SongService implements ISongService {
 
 	@Autowired
 	private SongConverter songConverter;
+	
+	@Autowired
+	private AlbumRepository albumRepository;
+
+	@Autowired
+	private SingerRepository singerRepository;
 
 	@Autowired
 	private SongRepository songRepository;
@@ -33,11 +45,27 @@ public class SongService implements ISongService {
 
 	@Override
 	public SongDTO save(SongDTO songDTO) {
-		// Initialize (assume songDTO's id is always null)
+		// Initialize
 		SongEntity songEntity = new SongEntity();
 
 		// Convert singerDTO to a singer entity and assign it to singerEntity
 		songEntity = songConverter.toEntity(songDTO);
+		
+		// Get album from database with the provided album id
+		try {
+			AlbumEntity albumEntity = albumRepository.findOne(songDTO.getAlbumId());
+			songEntity.setAlbum(albumEntity);
+		} catch (Exception ex) {
+			songEntity.setAlbum(null);
+		}
+
+		// Get singers from DB with provided singer ids
+		try {
+			List<SingerEntity> singerEntities = singerRepository.findAll(songDTO.getSingerIds());
+			songEntity.setSingers(singerEntities);
+		} catch (NullPointerException ex) {
+			songEntity.setSingers(null);
+		}
 
 		// Save songEntity to database
 		songEntity = songRepository.save(songEntity);
@@ -53,6 +81,22 @@ public class SongService implements ISongService {
 
 		// Convert songDTO to the old song entity to update it
 		songEntity = songConverter.toEntity(songDTO);
+		
+		// Get album from database with the provided album id
+		try {
+			AlbumEntity albumEntity = albumRepository.findOne(songDTO.getAlbumId());
+			songEntity.setAlbum(albumEntity);
+		} catch (Exception ex) {
+			songEntity.setAlbum(null);
+		}
+
+		// Get singers from DB with provided singer ids
+		try {
+			List<SingerEntity> singerEntities = singerRepository.findAll(songDTO.getSingerIds());
+			songEntity.setSingers(singerEntities);
+		} catch (NullPointerException ex) {
+			songEntity.setSingers(null);
+		}
 
 		// Save songEntity to database
 		songEntity = songRepository.save(songEntity);
