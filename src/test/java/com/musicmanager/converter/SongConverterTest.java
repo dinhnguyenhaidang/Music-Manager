@@ -38,9 +38,11 @@ public class SongConverterTest {
 
 	/**
 	 * Test toDTO
+	 * 
+	 * @throws Exception
 	 */
 	@Test
-	public void testToDTO() {
+	public void testToDTO() throws Exception {
 		System.out.println("Testing toDTO.");
 
 		// Given a SongEntity called songEntity
@@ -80,9 +82,11 @@ public class SongConverterTest {
 
 	/**
 	 * Test toEntity
+	 * 
+	 * @throws Exception
 	 */
 	@Test
-	public void testToEntity() {
+	public void testToEntity() throws Exception {
 		System.out.println("Testing toEntity.");
 
 		// Given a SongDTO called songDTO

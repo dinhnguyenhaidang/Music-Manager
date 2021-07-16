@@ -33,9 +33,11 @@ public class AlbumConverterTest {
 	
 	/**
 	 * Test toDTO
+	 * 
+	 * @throws Exception
 	 */
 	@Test
-	public void testToDTO() {
+	public void testToDTO() throws Exception {
 		System.out.println("Testing toDTO.");
 		
 		// Given an AlbumEntity called albumEntity
@@ -53,9 +55,11 @@ public class AlbumConverterTest {
 
 	/**
 	 * Test toEntity
+	 * 
+	 * @throws Exception
 	 */
 	@Test
-	public void testToEntity() {
+	public void testToEntity() throws Exception {
 		System.out.println("Testing toEntity.");
 		
 		// Given an AlbumDTO called albumDTO

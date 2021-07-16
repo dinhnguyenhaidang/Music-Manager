@@ -37,9 +37,11 @@ public class SingerConverterTest {
 
 	/**
 	 * Test toDTO
+	 * 
+	 * @throws Exception
 	 */
 	@Test
-	public void testToDTO() {
+	public void testToDTO() throws Exception {
 		System.out.println("Testing toDTO.");
 
 		// Given a SingerEntity called singerEntity
@@ -74,9 +76,11 @@ public class SingerConverterTest {
 
 	/**
 	 * Test toEntity
+	 * 
+	 * @throws Exception
 	 */
 	@Test
-	public void testToEntity() {
+	public void testToEntity() throws Exception {
 		System.out.println("Testing toEntity.");
 
 		// Given a SingerDTO called singerDTO
