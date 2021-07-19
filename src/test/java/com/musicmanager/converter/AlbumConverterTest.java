@@ -1,8 +1,10 @@
 package com.musicmanager.converter;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.musicmanager.dto.AlbumDTO;
@@ -19,6 +21,16 @@ public class AlbumConverterTest {
 
 	private AlbumConverter albumConverter;
 
+	@BeforeClass
+	public static void beforeClass() {
+		System.out.println("Start of AlbumConvertereTest.\n");
+	}
+	
+	@AfterClass
+	public static void afterClass() {
+		System.out.println("End of AlbumConverterTest.\n");
+	}
+	
 	@Before
 	public void setUp() {
 		System.out.println("Setting up.");

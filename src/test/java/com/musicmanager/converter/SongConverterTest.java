@@ -4,8 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.After;
+import org.junit.AfterClass;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 
 import com.musicmanager.dto.SongDTO;
@@ -24,6 +26,16 @@ public class SongConverterTest {
 
 	SongConverter songConverter;
 
+	@BeforeClass
+	public static void beforeClass() {
+		System.out.println("Start of SongConverterTest.\n");
+	}
+	
+	@AfterClass
+	public static void afterClass() {
+		System.out.println("End of SongConverterTest.\n");
+	}
+	
 	@Before
 	public void setUp() {
 		System.out.println("Setting up.");

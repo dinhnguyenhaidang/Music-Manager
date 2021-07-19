@@ -1,11 +1,10 @@
 package com.musicmanager.controller;
 
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.doNothing;
-import static org.mockito.Mockito.when;
-
 import org.junit.After;
+import org.junit.AfterClass;
+import org.junit.Assert;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -18,10 +17,27 @@ import com.musicmanager.AbstractControllerTest;
 import com.musicmanager.dto.AlbumDTO;
 import com.musicmanager.service.IAlbumService;
 
+/**
+ * Tests AlbumController
+ * 
+ * @author Void Wind
+ * @version 1.3
+ * @since 2021-07-19
+ */
 public class AlbumControllerTest extends AbstractControllerTest {
 
 	@MockBean
 	private IAlbumService albumService;
+
+	@BeforeClass
+	public static void beforeClass() {
+		System.out.println("Start of AlbumControllerTest.\n");
+	}
+
+	@AfterClass
+	public static void afterClass() {
+		System.out.println("End of AlbumControllerTest.\n");
+	}
 
 	@Before
 	public void setUp() {
@@ -31,7 +47,6 @@ public class AlbumControllerTest extends AbstractControllerTest {
 
 	@After
 	public void tearDown() {
-		albumService = null;
 		System.out.println("Tearing down.\n");
 	}
 
@@ -44,28 +59,30 @@ public class AlbumControllerTest extends AbstractControllerTest {
 	public void testReadAlbum() throws Exception {
 		System.out.println("Testing readAlbum.");
 
-		// Given an album exists
+		// Given an AlbumEntity called albumEntity exists
 		AlbumDTO expectedAlbumDTO = new AlbumDTO();
 		expectedAlbumDTO.setId(1L);
 		expectedAlbumDTO.setName("Album Name");
 
-		when(albumService.get(1L)).thenReturn(expectedAlbumDTO);
+		Mockito.when(albumService.get(Mockito.anyLong())).thenReturn(expectedAlbumDTO);
 
-		// When request get that album
+		// When request get an album with id matching albumEntity's id
 		String uri = "/music-manager/album/1";
 		RequestBuilder requestBuilder = MockMvcRequestBuilders.get(uri).accept(MediaType.APPLICATION_JSON);
 		MvcResult mvcResult = mvc.perform(requestBuilder).andReturn();
 
-		// Then return that album with status 200
+		// Then return a corresponding AlbumDTO with status 200
 		int status = mvcResult.getResponse().getStatus();
-		assertEquals(200, status);
+		Assert.assertEquals(200, status);
 
 		String response = mvcResult.getResponse().getContentAsString();
-		System.out.println("Response:\n" + response);
+		System.out.println("Response:" + response);
+		
+		Mockito.verify(albumService, Mockito.times(1)).get(Mockito.anyLong());
 
 		AlbumDTO actualAlbumDTO = super.mapFromJson(response, AlbumDTO.class);
-		assertEquals(expectedAlbumDTO.getId(), actualAlbumDTO.getId());
-		assertEquals(expectedAlbumDTO.getName(), actualAlbumDTO.getName());
+		Assert.assertEquals(expectedAlbumDTO.getId(), actualAlbumDTO.getId());
+		Assert.assertEquals(expectedAlbumDTO.getName(), actualAlbumDTO.getName());
 	}
 
 	/**
@@ -83,27 +100,28 @@ public class AlbumControllerTest extends AbstractControllerTest {
 		String inputJson = super.mapToJson(inputAlbumDTO);
 
 		AlbumDTO expectedAlbumDTO = new AlbumDTO();
-		expectedAlbumDTO.setId(10L);
+		expectedAlbumDTO.setId(1L);
 		expectedAlbumDTO.setName("Album Name");
 
-		when(albumService.save(Mockito.anyObject())).thenReturn(expectedAlbumDTO);
+		Mockito.when(albumService.save(Mockito.anyObject())).thenReturn(expectedAlbumDTO);
 
 		// When request create an album
 		String uri = "/music-manager/album";
-		RequestBuilder requestBuilder = MockMvcRequestBuilders.post(uri).accept(MediaType.APPLICATION_JSON).content(inputJson)
-				.contentType(MediaType.APPLICATION_JSON);
+		RequestBuilder requestBuilder = MockMvcRequestBuilders.post(uri).contentType(MediaType.APPLICATION_JSON_VALUE).content(inputJson);
 		MvcResult mvcResult = mvc.perform(requestBuilder).andReturn();
 
-		// Then create and return that album with status 200
+		// Then create an album and return a corresponding AlbumDTO with status 200
 		int status = mvcResult.getResponse().getStatus();
-		assertEquals(200, status);
+		Assert.assertEquals(200, status);
 
 		String response = mvcResult.getResponse().getContentAsString();
-		System.out.println("Response:\n" + response);
+		System.out.println("Response:" + response);
+		
+		Mockito.verify(albumService, Mockito.times(1)).save(Mockito.anyObject());
 
-//		AlbumDTO actualAlbumDTO = super.mapFromJson(response, AlbumDTO.class);
-//		assertEquals(expectedAlbumDTO.getId(), actualAlbumDTO.getId());
-//		assertEquals(expectedAlbumDTO.getName(), actualAlbumDTO.getName());
+		AlbumDTO actualAlbumDTO = super.mapFromJson(response, AlbumDTO.class);
+		Assert.assertEquals(expectedAlbumDTO.getId(), actualAlbumDTO.getId());
+		Assert.assertEquals(expectedAlbumDTO.getName(), actualAlbumDTO.getName());
 	}
 
 	/**
@@ -124,7 +142,7 @@ public class AlbumControllerTest extends AbstractControllerTest {
 		expectedAlbumDTO.setId(1L);
 		expectedAlbumDTO.setName("Updated Name");
 
-		when(albumService.update(Mockito.anyObject())).thenReturn(expectedAlbumDTO);
+		Mockito.when(albumService.update(Mockito.anyObject())).thenReturn(expectedAlbumDTO);
 
 		// When request update that album
 		String uri = "/music-manager/album/1";
@@ -133,10 +151,16 @@ public class AlbumControllerTest extends AbstractControllerTest {
 
 		// Then return the updated album with status 200
 		int status = mvcResult.getResponse().getStatus();
-		assertEquals(200, status);
+		Assert.assertEquals(200, status);
 
 		String response = mvcResult.getResponse().getContentAsString();
-		System.out.println("Response:\n" + response);
+		System.out.println("Response:" + response);
+		
+		Mockito.verify(albumService, Mockito.times(1)).update(Mockito.anyObject());
+
+		AlbumDTO actualAlbumDTO = super.mapFromJson(response, AlbumDTO.class);
+		Assert.assertEquals(expectedAlbumDTO.getId(), actualAlbumDTO.getId());
+		Assert.assertEquals(expectedAlbumDTO.getName(), actualAlbumDTO.getName());
 	}
 
 	/**
@@ -149,10 +173,10 @@ public class AlbumControllerTest extends AbstractControllerTest {
 		System.out.println("Testing deleteAlbum.");
 
 		// Given some albums exists
-		long[] ids = { 4, 5 };
+		long[] ids = { 4L, 5L };
 		String inputJson = super.mapToJson(ids);
 
-		doNothing().when(albumService).delete(ids);
+		Mockito.doNothing().when(albumService).delete(ids);
 
 		// When request delete these albums
 		String uri = "/music-manager/album";
@@ -161,11 +185,13 @@ public class AlbumControllerTest extends AbstractControllerTest {
 
 		// Then delete these albums and return with status 200
 		int status = mvcResult.getResponse().getStatus();
-		assertEquals(200, status);
+		Assert.assertEquals(200, status);
 
 		String response = mvcResult.getResponse().getContentAsString();
-		assertEquals(response, "");
-		System.out.println("Response:\n" + response);
+		Assert.assertEquals(response, "");
+		System.out.println("Response:" + response);
+		
+		Mockito.verify(albumService, Mockito.times(1)).delete(ids);
 	}
 
 }

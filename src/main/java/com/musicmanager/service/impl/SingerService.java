@@ -18,8 +18,8 @@ import com.musicmanager.service.ISingerService;
  * Provides services related to singer
  * 
  * @author Void Wind
- * @version 1.1
- * @since 2021-07-12
+ * @version 1.2
+ * @since 2021-07-19
  */
 @Service
 public class SingerService implements ISingerService {
@@ -32,6 +32,18 @@ public class SingerService implements ISingerService {
 
 	@Autowired
 	private SongRepository songRepository;
+
+	public void setSingerConverter(SingerConverter singerConverter) {
+		this.singerConverter = singerConverter;
+	}
+
+	public void setSingerRepository(SingerRepository singerRepository) {
+		this.singerRepository = singerRepository;
+	}
+
+	public void setSongRepository(SongRepository songRepository) {
+		this.songRepository = songRepository;
+	}
 
 	@Override
 	public SingerDTO get(long id) {

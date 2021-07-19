@@ -13,8 +13,8 @@ import com.musicmanager.service.IAlbumService;
  * Provides services related to album
  * 
  * @author Void Wind
- * @version 1.1
- * @since 2021-07-12
+ * @version 1.2
+ * @since 2021-07-19
  */
 @Service
 public class AlbumService implements IAlbumService {
@@ -24,6 +24,14 @@ public class AlbumService implements IAlbumService {
 
 	@Autowired
 	private AlbumRepository albumRepository;
+
+	public void setAlbumConverter(AlbumConverter albumConverter) {
+		this.albumConverter = albumConverter;
+	}
+
+	public void setAlbumRepository(AlbumRepository albumRepository) {
+		this.albumRepository = albumRepository;
+	}
 
 	@Override
 	public AlbumDTO get(long id) {

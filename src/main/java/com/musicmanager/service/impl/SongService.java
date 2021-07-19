@@ -19,8 +19,8 @@ import com.musicmanager.service.ISongService;
  * Provides services related to song
  * 
  * @author Void Wind
- * @version 1.2
- * @since 2021-07-12
+ * @version 1.3
+ * @since 2021-07-19
  */
 @Service
 public class SongService implements ISongService {
@@ -36,6 +36,22 @@ public class SongService implements ISongService {
 
 	@Autowired
 	private SongRepository songRepository;
+
+	public void setSongConverter(SongConverter songConverter) {
+		this.songConverter = songConverter;
+	}
+
+	public void setAlbumRepository(AlbumRepository albumRepository) {
+		this.albumRepository = albumRepository;
+	}
+
+	public void setSingerRepository(SingerRepository singerRepository) {
+		this.singerRepository = singerRepository;
+	}
+
+	public void setSongRepository(SongRepository songRepository) {
+		this.songRepository = songRepository;
+	}
 
 	@Override
 	public SongDTO get(long id) {
