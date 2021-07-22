@@ -1,11 +1,14 @@
 package com.musicmanager.security;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.musicmanager.entity.UserEntity;
 
 /**
  * Provides user details
@@ -21,28 +24,30 @@ public class MyUserDetails implements UserDetails {
 	 */
 	private static final long serialVersionUID = 1L;
 	private String username;
-	
+	private String password;
+	private boolean active;
+	private List<GrantedAuthority> authorities;
+
 	public MyUserDetails() {
 	}
-	
-	public MyUserDetails(String username) {
-		this.username = username;
+
+	public MyUserDetails(UserEntity userEntity) {
+		this.username = userEntity.getUsername();
+		this.password = userEntity.getPassword();
+		this.active = userEntity.isActive();
+		GrantedAuthority authority = new SimpleGrantedAuthority("ROLE_" + userEntity.getRoles());
+		this.authorities = new ArrayList<>();
+		this.authorities.add(authority);
 	}
 
-	/**
-	 * Hard coded
-	 */
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return Arrays.asList(new SimpleGrantedAuthority("ROLE_USER"));
+		return authorities;
 	}
 
-	/**
-	 * Hard coded
-	 */
 	@Override
 	public String getPassword() {
-		return "password";
+		return password;
 	}
 
 	@Override
@@ -74,12 +79,9 @@ public class MyUserDetails implements UserDetails {
 		return true;
 	}
 
-	/**
-	 * Hard coded
-	 */
 	@Override
 	public boolean isEnabled() {
-		return true;
+		return active;
 	}
 
 }

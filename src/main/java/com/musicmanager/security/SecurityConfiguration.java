@@ -32,8 +32,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 				.antMatchers("/music-manager/album/**").hasAnyRole("ADMIN", "USER")
-				.antMatchers("/music-manager/singer").hasRole("ADMIN")
-				.antMatchers("music-manager/song").hasRole("ADMIN")
+				.antMatchers("/music-manager/singer/**").hasRole("ADMIN")
+				.antMatchers("/music-manager/song/**").hasRole("ADMIN")
 				.antMatchers("/").permitAll()
 				.and().formLogin();
 //		http.authorizeRequests()
