@@ -1,4 +1,4 @@
-package com.musicmanager;
+package com.musicmanager.controller;
 
 import java.io.IOException;
 
@@ -17,7 +17,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest(classes = Application.class)
+@SpringBootTest
 @WebAppConfiguration
 public abstract class AbstractControllerTest {
 

@@ -9,11 +9,11 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import com.musicmanager.AbstractControllerTest;
 import com.musicmanager.dto.SingerDTO;
 import com.musicmanager.service.ISingerService;
 
@@ -56,6 +56,7 @@ public class SingerControllerTest extends AbstractControllerTest {
 	 * @throws Exception
 	 */
 	@Test
+	@WithMockUser(username = "admin", password = "password", roles = "ADMIN")
 	public void testReadSinger() throws Exception {
 		System.out.println("Testing readSinger.");
 
@@ -93,6 +94,7 @@ public class SingerControllerTest extends AbstractControllerTest {
 	 * @throws Exception
 	 */
 	@Test
+	@WithMockUser(username = "admin", password = "password", roles = "ADMIN")
 	public void testCreateSinger() throws Exception {
 		System.out.println("Testing createSinger.");
 
@@ -135,6 +137,7 @@ public class SingerControllerTest extends AbstractControllerTest {
 	 * @throws Exception
 	 */
 	@Test
+	@WithMockUser(username = "admin", password = "password", roles = "ADMIN")
 	public void testUpdateSinger() throws Exception {
 		System.out.println("Testing updateSinger.");
 
@@ -178,6 +181,7 @@ public class SingerControllerTest extends AbstractControllerTest {
 	 * @throws Exception
 	 */
 	@Test
+	@WithMockUser(username = "admin", password = "password", roles = "ADMIN")
 	public void testDeleteSinger() throws Exception {
 		System.out.println("Testing deleteSinger.");
 

@@ -9,11 +9,11 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import com.musicmanager.AbstractControllerTest;
 import com.musicmanager.dto.AlbumDTO;
 import com.musicmanager.service.IAlbumService;
 
@@ -56,6 +56,7 @@ public class AlbumControllerTest extends AbstractControllerTest {
 	 * @throws Exception
 	 */
 	@Test
+	@WithMockUser(username = "admin", password = "password", roles = "ADMIN")
 	public void testReadAlbum() throws Exception {
 		System.out.println("Testing readAlbum.");
 
@@ -77,7 +78,7 @@ public class AlbumControllerTest extends AbstractControllerTest {
 
 		String response = mvcResult.getResponse().getContentAsString();
 		System.out.println("Response:" + response);
-		
+
 		Mockito.verify(albumService, Mockito.times(1)).get(Mockito.anyLong());
 
 		AlbumDTO actualAlbumDTO = super.mapFromJson(response, AlbumDTO.class);
@@ -91,6 +92,7 @@ public class AlbumControllerTest extends AbstractControllerTest {
 	 * @throws Exception
 	 */
 	@Test
+	@WithMockUser(username = "admin", password = "password", roles = "ADMIN")
 	public void testCreateAlbum() throws Exception {
 		System.out.println("Testing createAlbum.");
 
@@ -116,7 +118,7 @@ public class AlbumControllerTest extends AbstractControllerTest {
 
 		String response = mvcResult.getResponse().getContentAsString();
 		System.out.println("Response:" + response);
-		
+
 		Mockito.verify(albumService, Mockito.times(1)).save(Mockito.anyObject());
 
 		AlbumDTO actualAlbumDTO = super.mapFromJson(response, AlbumDTO.class);
@@ -130,6 +132,7 @@ public class AlbumControllerTest extends AbstractControllerTest {
 	 * @throws Exception
 	 */
 	@Test
+	@WithMockUser(username = "admin", password = "password", roles = "ADMIN")
 	public void testUpdateAlbum() throws Exception {
 		System.out.println("Testing updateAlbum.");
 
@@ -155,7 +158,7 @@ public class AlbumControllerTest extends AbstractControllerTest {
 
 		String response = mvcResult.getResponse().getContentAsString();
 		System.out.println("Response:" + response);
-		
+
 		Mockito.verify(albumService, Mockito.times(1)).update(Mockito.anyObject());
 
 		AlbumDTO actualAlbumDTO = super.mapFromJson(response, AlbumDTO.class);
@@ -169,6 +172,7 @@ public class AlbumControllerTest extends AbstractControllerTest {
 	 * @throws Exception
 	 */
 	@Test
+	@WithMockUser(username = "admin", password = "password", roles = "ADMIN")
 	public void testDeleteAlbum() throws Exception {
 		System.out.println("Testing deleteAlbum.");
 
@@ -190,7 +194,7 @@ public class AlbumControllerTest extends AbstractControllerTest {
 		String response = mvcResult.getResponse().getContentAsString();
 		Assert.assertEquals(response, "");
 		System.out.println("Response:" + response);
-		
+
 		Mockito.verify(albumService, Mockito.times(1)).delete(ids);
 	}
 

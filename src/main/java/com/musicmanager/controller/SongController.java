@@ -31,7 +31,7 @@ public class SongController {
 	 * @return a song DTO that has the requested id
 	 */
 	@RequestMapping(value = "/music-manager/song/{song-id}", method = RequestMethod.GET)
-	@PreAuthorize("hasRole('USER')")
+	@PreAuthorize("hasAnyRole('ADMIN','USER')")
 	public SongDTO readtSong(@PathVariable("song-id") long id) {
 		return songService.get(id);
 	}

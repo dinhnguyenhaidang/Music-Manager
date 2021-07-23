@@ -31,7 +31,7 @@ public class AlbumController {
 	 * @return an album DTO that has the requested id
 	 */
 	@RequestMapping(value = "/music-manager/album/{album-id}", method = RequestMethod.GET)
-	@PreAuthorize("hasRole('USER')")
+	@PreAuthorize("hasAnyRole('ADMIN','USER')")
 	public AlbumDTO readAlbum(@PathVariable(name = "album-id", required = true) long id) {
 		return albumService.get(id);
 	}
