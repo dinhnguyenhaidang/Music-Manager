@@ -1,6 +1,7 @@
 package com.musicmanager.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,8 +15,8 @@ import com.musicmanager.service.ISingerService;
  * Handles requests related to song
  * 
  * @author Void Wind
- * @version 1.1
- * @since 2021-07-12
+ * @version 1.2
+ * @since 2021-07-23
  */
 @RestController
 public class SingerController {
@@ -30,6 +31,7 @@ public class SingerController {
 	 * @return a singer DTO that has the requested id
 	 */
 	@RequestMapping(value = "/music-manager/singer/{singer-id}", method = RequestMethod.GET)
+	@PreAuthorize("hasRole('USER')")
 	public SingerDTO readSinger(@PathVariable("singer-id") long id) {
 		return singerService.get(id);
 	}
@@ -41,6 +43,7 @@ public class SingerController {
 	 * @return a singer DTO that matches the model
 	 */
 	@RequestMapping(value = "/music-manager/singer", method = RequestMethod.POST)
+	@PreAuthorize("hasRole('ADMIN')")
 	public SingerDTO createSinger(@RequestBody SingerDTO model) {
 		return singerService.save(model);
 	}
@@ -53,6 +56,7 @@ public class SingerController {
 	 * @return a singer DTO that matches the model 
 	 */
 	@RequestMapping(value = "/music-manager/singer/{singer-id}", method = RequestMethod.PUT)
+	@PreAuthorize("hasRole('ADMIN')")
 	public SingerDTO updateSinger(@RequestBody SingerDTO model, @PathVariable("singer-id") long id) {
 		model.setId(id);
 		return singerService.update(model);
@@ -64,6 +68,7 @@ public class SingerController {
 	 * @param ids of singers to delete, receive from request body
 	 */
 	@RequestMapping(value = "/music-manager/singer", method = RequestMethod.DELETE)
+	@PreAuthorize("hasRole('ADMIN')")
 	public void deleteSinger(@RequestBody long[] ids) {
 		singerService.delete(ids);
 	}

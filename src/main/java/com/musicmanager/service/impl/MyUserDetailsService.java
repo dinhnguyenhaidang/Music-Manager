@@ -1,4 +1,4 @@
-package com.musicmanager.security;
+package com.musicmanager.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.musicmanager.entity.UserEntity;
 import com.musicmanager.repository.UserRepository;
+import com.musicmanager.security.model.MyUserDetails;
 
 /**
  * Provides user details services

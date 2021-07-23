@@ -1,6 +1,7 @@
 package com.musicmanager.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,8 +15,8 @@ import com.musicmanager.service.IAlbumService;
  * Handles requests related to album
  * 
  * @author Void Wind
- * @version 1.1
- * @since 2021-07-012
+ * @version 1.2
+ * @since 2021-07-23
  */
 @RestController
 public class AlbumController {
@@ -30,6 +31,7 @@ public class AlbumController {
 	 * @return an album DTO that has the requested id
 	 */
 	@RequestMapping(value = "/music-manager/album/{album-id}", method = RequestMethod.GET)
+	@PreAuthorize("hasRole('USER')")
 	public AlbumDTO readAlbum(@PathVariable(name = "album-id", required = true) long id) {
 		return albumService.get(id);
 	}
@@ -41,6 +43,7 @@ public class AlbumController {
 	 * @return an album DTO that matches the model
 	 */
 	@RequestMapping(value = "/music-manager/album", method = RequestMethod.POST)
+	@PreAuthorize("hasRole('ADMIN')")
 	public AlbumDTO createAlbum(@RequestBody AlbumDTO model) {
 		return albumService.save(model);
 	}
@@ -53,6 +56,7 @@ public class AlbumController {
 	 * @return an album DTO that matches the model
 	 */
 	@RequestMapping(value = "/music-manager/album/{album-id}", method = RequestMethod.PUT)
+	@PreAuthorize("hasRole('ADMIN')")
 	public AlbumDTO updateAlbum(@RequestBody AlbumDTO model, @PathVariable(name = "album-id", required = true) long id) {
 		model.setId(id);
 		return albumService.update(model);
@@ -64,6 +68,7 @@ public class AlbumController {
 	 * @param ids of albums to delete, receive from request body
 	 */
 	@RequestMapping(value = "/music-manager/album", method = RequestMethod.DELETE)
+	@PreAuthorize("hasRole('ADMIN')")
 	public void deleteAlbum(@RequestBody long[] ids) {
 		albumService.delete(ids);
 	}

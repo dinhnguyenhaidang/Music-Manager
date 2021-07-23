@@ -1,4 +1,4 @@
-package com.musicmanager.security;
+package com.musicmanager.security.model;
 
 import java.util.ArrayList;
 import java.util.Collection;
